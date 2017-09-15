@@ -11,7 +11,7 @@ endif()
 #### www.mysql.com if you don't have them 
 ###########################################################
 if(NOT MYSQL_SOURCES_PATH)
-    set(MYSQL_SOURCES_PATH "/usr/src/mysql/mysql-5.5")
+    set(MYSQL_SOURCES_PATH "/home/gal/temp/mariadb-10.1.26/")
 endif()
 ###########################################################
 #### uncomment this, if you compile for MariaDB 10.0
