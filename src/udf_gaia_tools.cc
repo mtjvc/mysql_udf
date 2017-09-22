@@ -51,7 +51,7 @@ void gaia_healpix_deinit( UDF_INIT* initid ) {
 }
 
 long long gaia_healpix( UDF_INIT* initid, UDF_ARGS* args, char* is_null, char* is_error ) {
-    int64_t healpix = 12;
+    int64_t healpix;
 
     int32_t level = (int32_t)*(long long*)args->args[0];
     int64_t source_id= (int64_t)*(long long*)args->args[1];
