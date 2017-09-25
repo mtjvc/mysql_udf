@@ -8,6 +8,8 @@ These are:
 - UDF for distributed STDDEV calculation (using Welford 1962, Chan et al. 1979)
 - UDF for doing nothing for a given number of seconds (sleep)
 - UDF for strrpos implementation
+- UDFs for work with Gaia mission data
+- UDFs with special functions such as erf
 
 
 To install
@@ -48,26 +50,16 @@ udf_angdist:
 angdist(pointA RA (degree), pointA DEC (degree), pointB RA (degree), pointB DEC (degree))
 
 
+udf_gaia_healpix:
+
+gaia_healpix(healpix level, source_id)
+
+
 udf_hilbert:
 
 hilbertKey(hilbert order, box size, num dim, x, y, z, ... )
 
 coordFromHilbertKey(hilbert order, box size, num dim, hilbert key, current dimension (separate call for each dimension))
-
-
-udf_sleep:
-
-idle(num seconds)
-
-
-udf_strrpos:
-
-strrpos(haystack, needle)
-
-
-udf_sum_of_squares:
-
-sum_of_squares(number)
 
 
 udf_partitAdd_sum_of_squares:
@@ -76,3 +68,23 @@ partitadd_sum_of_sqares(PART_M2, PART_MEAN, PART_COUNT)
  * - par1: PART_M2:	the sum of squares for a given partition
  * - par2: PART_MEAN:	the mean for a given partition
  * - par3: PART_COUNT:	the number of elements in the partition
+
+
+udf_sleep:
+
+idle(num seconds)
+
+
+udf_special_functions:
+
+aip_erf(x)
+
+
+udf_sum_of_squares:
+
+sum_of_squares(number)
+
+
+udf_strrpos:
+
+strrpos(haystack, needle)
