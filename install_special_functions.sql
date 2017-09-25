@@ -1,0 +1,1 @@
+CREATE FUNCTION aip_erf RETURNS REAL SONAME 'mysql_aip_UDF.so';
