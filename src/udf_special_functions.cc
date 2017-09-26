@@ -64,6 +64,7 @@ double aip_erf( UDF_INIT* initid, UDF_ARGS* args, char* is_null, char* is_error 
     double a3 = 1.421413741;
     double a4 = -1.453152027;
     double a5 = 1.061405429;
+    int sgn = 1;
     double x;
 
     if(args->args[0] != NULL){
@@ -89,13 +90,12 @@ double aip_erf( UDF_INIT* initid, UDF_ARGS* args, char* is_null, char* is_error 
         return 0;
     }
 
-    if(args->args[0] != NULL){
-        if(x < 0.0){
-            *is_null = 1;
-            return 0;
-        }
+    if(x < 1e-12 && x > -1e-12) return 0.0;
+    else if(x < -1e-12){
+        x = -x;
+        sgn = -1;
     }
-
+    
     double t = 1.0 / (1.0 + p * x); 
     double erf = 1.0 - (a1 * t +
                         a2 * t * t +
@@ -104,5 +104,5 @@ double aip_erf( UDF_INIT* initid, UDF_ARGS* args, char* is_null, char* is_error 
                         a5 * t * t * t * t * t
                        ) * exp( -x * x );
 
-    return erf;
+    return erf * sgn;
 }
