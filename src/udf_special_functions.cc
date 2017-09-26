@@ -27,6 +27,21 @@ my_bool aip_erf_init( UDF_INIT* initid, UDF_ARGS* args, char* message ) {
         return 1;
     }
 
+    switch(args->arg_type[0]) {
+        case INT_RESULT:
+            args->arg_type[0] = REAL_RESULT;
+            *(double*)args->args[0] = (double)*(long long*)args->args[0];
+            break;
+        case DECIMAL_RESULT:
+            args->arg_type[0] = REAL_RESULT;
+            *(double*)args->args[0] = atof(args->args[0]);
+            break;
+        case REAL_RESULT:
+            break;
+        default:
+            return 1;
+    }
+
     //no limits on number of decimals
     initid->decimals = 31;
     initid->maybe_null = 0;
@@ -47,14 +62,7 @@ double aip_erf( UDF_INIT* initid, UDF_ARGS* args, char* is_null, char* is_error 
     double a3 = 1.421413741;
     double a4 = -1.453152027;
     double a5 = 1.061405429;
-    double x;
-
-    if(args->arg_type[0] == REAL_RESULT) {
-        x = *(double*)args->args[0];
-    }
-    else {
-        x = atof(args->args[0]);
-    }
+    double x = *(double*)args->args[0];
 
     double t = 1.0 / (1.0 + p * x); 
     double erf = 1.0 - (a1 * t +
