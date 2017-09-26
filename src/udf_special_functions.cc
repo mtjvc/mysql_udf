@@ -27,19 +27,21 @@ my_bool aip_erf_init( UDF_INIT* initid, UDF_ARGS* args, char* message ) {
         return 1;
     }
 
-    switch(args->arg_type[0]) {
-        case INT_RESULT:
-            args->arg_type[0] = REAL_RESULT;
-            *(double*)args->args[0] = (double)*(long long*)args->args[0];
-            break;
-        case DECIMAL_RESULT:
-            args->arg_type[0] = REAL_RESULT;
-            *(double*)args->args[0] = atof(args->args[0]);
-            break;
-        case REAL_RESULT:
-            break;
-        default:
-            return 1;
+    if(args->args[0] != NULL){
+        switch(args->arg_type[0]) {
+            case INT_RESULT:
+                args->arg_type[0] = REAL_RESULT;
+                *(double*)args->args[0] = (double)*(long long*)args->args[0];
+                break;
+            case DECIMAL_RESULT:
+                args->arg_type[0] = REAL_RESULT;
+                *(double*)args->args[0] = atof(args->args[0]);
+                break;
+            case REAL_RESULT:
+                break;
+            default:
+                return 1;
+        }
     }
 
     //no limits on number of decimals
@@ -62,7 +64,19 @@ double aip_erf( UDF_INIT* initid, UDF_ARGS* args, char* is_null, char* is_error 
     double a3 = 1.421413741;
     double a4 = -1.453152027;
     double a5 = 1.061405429;
-    double x = *(double*)args->args[0];
+    double x;
+
+    if(args->args[0] != NULL){
+        x = *(double*)args->args[0];
+        if(x < 0.0){
+            *is_null = 1;
+            return 0;
+        }
+    }
+    else {
+        *is_null = 1;
+        return 0;
+    }
 
     double t = 1.0 / (1.0 + p * x); 
     double erf = 1.0 - (a1 * t +
