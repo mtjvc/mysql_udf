@@ -17,32 +17,17 @@ Installation
 3) Edit ``CMakeList.txt`` accordingly to point to the directory
    of the mysql sources
 
-4)
+4) Execute the following commands:
 
 .. code-block:: shell
 
     mkdir build
     cd build
-
-5) 
-
-.. code-block:: shell
-
     cmake ..
-
-6)
-
-.. code-block:: shell
-
     make
-
-7)
-
-.. code-block:: shell
-
     make install
 
-8) Log into MySQL/MariaDB server as root and execute the commands in 
+5) Log into MySQL/MariaDB server as root and execute the commands in 
    ``install_udfs.sql``. This will setup the neccessary tables, install
    the plugin and create all the UDFs needed to administer the queue.
 
