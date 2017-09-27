@@ -18,22 +18,26 @@ Installation
    of the mysql sources
 
 4)
+
 .. code-block:: shell
 
     mkdir build
     cd build
 
 5) 
+
 .. code-block:: shell
 
     cmake ..
 
 6)
+
 .. code-block:: shell
 
     make
 
 7)
+
 .. code-block:: shell
 
     make install
